@@ -259,7 +259,7 @@ let firstLast = []
 // Complete the exercise in the space below:
 
 people.map((person) => {
-       const splitNames = person.split(" ")
+       const splitNames = person.split(", ")
        firstLast.push(`${splitNames[1]} ${splitNames[0]}`) 
 })
 
@@ -328,8 +328,10 @@ old or older.
 let isAdultPresent = null
 
 // Complete the exercise in the space below:
-isAdultPresent = devs.some((dev) => {
-   return  dev.year < 2006
+const currentYear = new Date().getFullYear()
+
+isAdultPresent = devs.some(({year}) => { //getting the year of all devs directly is more efficient. other than passing in all devs then getting their year (dev.year)
+   return  currentYear - year > 18;
 })
 
 
@@ -357,7 +359,7 @@ let isEveryone19OrOlder = null
 
 
 
-const is19 = (currentValue) => currentValue.year < 2006 
+const is19 = (currentValue) => currentYear - currentValue.year > 19 
 isEveryone19OrOlder = devs.every(is19)
 
 // Check your work:
@@ -437,9 +439,9 @@ let totalYearsLived = 0
 
 // Complete the exercise in the space below:
 
-totalYearsLived = inventors.reduce((acc, currentValue) => {
-    const lifeSpan = currentValue.passed - currentValue.year
-    return  acc = acc + lifeSpan
+totalYearsLived = inventors.reduce((total, {passed,year}) => {
+    const lifeSpan = passed - year
+    return  total += lifeSpan
 }, 0)
 
 
